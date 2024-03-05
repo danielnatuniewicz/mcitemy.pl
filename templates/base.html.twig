@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}McItemy.PL - Najtańszy sklep z itemami{% endblock %}</title>
+        {% block metatags %}
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        {% endblock %}
+
+        {% block stylesheets %}
+            <link href="{{ asset('css/style.css') }}" rel="stylesheet"/>
+            <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,600,700&display=swap" rel="stylesheet">
+            <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        {% endblock %}
+
+        {% block javascriptImportant %}
+            <script type="text/javascript" src="{{asset('/js/jquery.min.js')}}"></script>   
+        {% endblock %}
+    </head>
+    <body>
+        <section class="header">
+            <nav>
+                <div class="nav-links" id="navLinks">
+                    <i class="fa fa-close" onclick="hideMenu()"></i>
+                    <ul>
+                        <li><a href="/">Strona Glowna</a></li>
+                        <li><a href="/category">Sklep</a></li>
+                    </ul>
+                </div>
+                <i class="fa fa-bars" onclick="showMenu()"></i>               
+            </nav>
+
+            {% block header %}
+
+            {% endblock %}
+
+        </section>
+        {% block site %}
+
+        {% endblock %}
+    </body>  
+        <script>
+            var navLinks = document.getElementById("navLinks");
+
+            function showMenu() {
+                navLinks.style.right = "0";
+            }
+
+            function hideMenu() {
+                navLinks.style.right = "-200px";
+            }
+        </script>
+        {% block custom_javascript %}
+
+        {% endblock %}
+    </body>
+</html>

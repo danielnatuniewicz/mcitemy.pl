@@ -1,0 +1,33 @@
+{% extends "base.html.twig" %}
+
+{% block header %}
+    <div class="row">
+        {% for key in product.products_bound %}
+            <div class="course-col">
+                <a href="/product/{{ key.uniqid }}">
+                    <div class="course-block">
+                        {% if key.stock > 10 %}
+                            <div class="course-block-online">
+                                {{ key.stock }}
+                            </div>
+                        {% elseif key.stock <= 10 and key.stock > 0 %}
+                            <div class="course-block-orange">
+                                {{ key.stock }}
+                            </div>     
+                        {% else %}
+                            <div class="course-block-offline">
+                                {{ key.stock }}
+                            </div>                            
+                        {% endif %}
+                        <h3>{{ key.title }}</h3>
+                        <h3>{{ key.price_display }}zł</h3>
+                        {#<div class="image">
+                            <img src="{{ key.photo }}" width="150" height="150" />
+                        </div>
+                        #}
+                    </div>
+                </a>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

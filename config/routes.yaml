@@ -1,0 +1,19 @@
+index:
+   path: /
+   controller: App\Controller\IndexController::index
+categoryid:
+   path: /category/{category}
+   controller: App\Controller\CategoryController::category
+category:
+   path: /category/
+   controller: App\Controller\CategoryController::index
+productid:
+   path: /product/{product}
+   controller: App\Controller\ProductController::product
+product:
+   path: /product/
+   controller: App\Controller\ProductController::noProduct
+payment_create:
+   path: /payment/create
+   controller: App\Controller\PaymentController::createPayment
+   methods: POST

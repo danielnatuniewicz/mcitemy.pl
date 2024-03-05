@@ -1,0 +1,15 @@
+{% extends "base.html.twig" %}
+
+{% block header %}
+    <div class="row">
+        {% for key in category.data.categories %}
+            <div class="course-col">
+                <a href="/category/{{ key.uniqid }}">
+                    <div class="course-block">                 
+                        <h3>{{ key.title }}</h3>
+                    </div>
+                </a>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

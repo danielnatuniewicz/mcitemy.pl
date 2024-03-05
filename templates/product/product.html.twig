@@ -1,0 +1,76 @@
+{% extends "base.html.twig" %}
+
+{% block header %}
+    <div class="row">
+        <div class="product-block">
+            <div class="product-block-50">
+                <h3 class="product-block-text-h3">{{ product.title }}</h3>
+                <p class="product-block-text-p">{{ product.description }}</p>
+            </div>
+            <div class="product-block-50">
+                <div class="errorMessage" id="errorMessage">
+
+                </div>
+                <form>
+                    <div class="info-input">
+                        <input type="text" placeholder="Nick na serwerze" name="nickname" id="nickname"/>
+                    </div>
+                    <div class="info-input">
+                        <input type="text" placeholder="Email" name="email" id="email"/>
+                    </div>
+                    <div class="info-input">
+                        <input type="text" placeholder="dodatkowe informacje np discord" name="additional" id="additional"/>
+                    </div>
+                    <div class="info-input">
+                        <input type="range" min="1" max="{{ product.stock }}" value="1" name="slider" id="slider"/>
+                    </div>
+                    <input type="hidden" value="{{ product.uniqid }}" name="productid" id="productid" />
+                    <div class="block-flex" style="margin-bottom:5px;">
+                        <div class="block-flex-50">
+                            <h3 class="block-flex-text-h3">Cena</h3>
+                            <p class="block-flex-text-p" id="price">{{ product.price_display}} zł</p>
+                        </div>
+                        <div class="block-flex-50">
+                            <h3 class="block-flex-text-h3">Ilość</h3>
+                            <p class="block-flex-text-p" id="sliderValue">1</p>
+                        </div>
+                    </div>
+                    <div class="info-input">
+                        <button type="submit">Przejdź do płantości</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block custom_javascript %}
+<script>
+    $("form").submit(function(e) {
+                
+        e.preventDefault();
+                
+        var form = $(this);
+
+        $.ajax({
+            type: "POST",
+            url: "/payment/create",
+            data: form.serialize(),
+            success:function(data){
+                if(data['error']){
+                    $('#errorMessage').html('')
+                    $('#errorMessage').append('<p>'+data['message']+'</p>')
+                }else{
+                    window.location.href = 'https://itemymc.sellix.io/invoice/' + data['invoice']
+                }
+            }
+        });
+    });
+
+
+    $(document).on('input', '#slider', function() {
+        $('#sliderValue').html( $(this).val() );
+        $('#price').html($(this).val() * {{ product.price_display}} + " zł");
+    });
+</script>
+{% endblock %}
